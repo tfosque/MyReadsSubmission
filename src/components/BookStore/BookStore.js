@@ -72,8 +72,9 @@ class BookStore extends Component {
     const Shelves = () => {
       return !isEmpty(bookData) ? Object.entries(this.state.shelves).map(shelf =>
          <Shelf
+            key={shelf}
             shelf={shelf}
-            bookData={bookData}
+            books={bookData}Œ
             refreshBooks={(id) => this.refreshBooks(id)}
             searchMode={searchMode}
           />

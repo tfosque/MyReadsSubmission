@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import { isEmpty, size } from 'lodash';
-import { animations, easings } from 'react-animation'
+import { easings } from 'react-animation'
 import * as BooksAPI from '../../BooksAPI';
 import NoCover from '../../images/cover-NA.jpg';
 
@@ -16,35 +15,21 @@ class Book extends Component {
     defaultValue: 'none',
   };
 
-  componentDidMount(){
+  componentDidMount () {
     this._isMounted = true;
 
-    const api = "https://reactnd-books-api.udacity.com"
-
-    let token = localStorage.token
-    if (!token)
-      token = localStorage.token = Math.random().toString(36).substr(-8)
-
-    const headers = {
-      'Accept': 'application/json',
-      'Authorization': token
-    }
-
-    axios
-      .get(`${api}/books/${this.props.book.id}`, { headers })
+    BooksAPI.get(this.props.book.id)
       .then((json) => json)
       .then(result => {
-         if(this._isMounted) {
+        if (this._isMounted) {
           this.setState({
-            // book: result.data,
-            defaultValue: result.data.book.shelf,
+            defaultValue: result.shelf,
           })
         }
-      }
-    );
+      });
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._isMounted = false;
   }
 
@@ -81,7 +66,7 @@ class Book extends Component {
     }
   };
 
-  render() {
+  render () {
     const { book } = this.props;
     const { imageLinks, title, authors } = book;
 
@@ -137,7 +122,7 @@ class Book extends Component {
               backgroundImage: `url(${thumb})`,
             }}
           />
-          ) : (
+        ) : (
             <div
               className='book-cover'
               style={{
@@ -157,26 +142,24 @@ class Book extends Component {
           <div>
             <div className='book' style={applyBookSearchStyle}>
               <section style={style}>
-              <div className='book-top'>
-               <DisplayImage />
-                <div className='book-shelf-changer'>
-                  <select
-                    onChange={setChangeMethod}
-                    defaultValue={this.state.defaultValue}
-                  >
-                    <option value='move' disabled>
-                      Move to...
+                <div className='book-top'>
+                  <DisplayImage />
+                  <div className='book-shelf-changer'>
+                    <select
+                      onChange={setChangeMethod}
+                      defaultValue={this.state.defaultValue}
+                    >
+                      <option value='move' disabled>
+                        Move to...
                     </option>
-                    <option value='currentlyReading'>Currently Reading</option>
-                    <option value='wantToRead'>Want to Read</option>
-                    <option value='read'>Read</option>
-                    <option value='none'>None</option>
-                  </select>
+                      <option value='currentlyReading'>Currently Reading</option>
+                      <option value='wantToRead'>Want to Read</option>
+                      <option value='read'>Read</option>
+                      <option value='none'>None</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-
-            </section>
-
+              </section>
               <div className='book-title'>{truncateTitle(title)}</div>
               <div className='book-authors'>{authorList}</div>
             </div>

@@ -13,17 +13,17 @@ const proptypes = {
 
 export default class Shelf extends Component {
   render() {
-    const { shelf, bookData, refreshBooks } = this.props;
+    const { shelf, books, refreshBooks } = this.props;
 
-    const books =  bookData.filter(f => f.shelf.includes(shelf[0]));
+    const bookshelf =  books.filter(f => f.shelf.includes(shelf[0]));
 
     const shelfTitle = shelf[1][0];
 
     const Books = () => {
       return (
         <div className='booksContainer'>
-          {!isEmpty(books)
-            ? sortBy(books, 'title').map((book) => {
+          {!isEmpty(bookshelf)
+            ? sortBy(bookshelf, 'title').map((book) => {
                 return (
                   <div
                     key={`${book.thumbnail}${book.pageCount}${book.title}`}
