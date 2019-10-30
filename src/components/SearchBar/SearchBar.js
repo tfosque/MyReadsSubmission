@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { InputGroup, FormControl, Form, Alert, Badge } from 'react-bootstrap';
+import { InputGroup, FormControl, Form, Alert, Badge, Image } from 'react-bootstrap';
 import { size, isEmpty } from 'lodash';
 import * as BooksAPI from '../../BooksAPI';
-import HomeIcon from '@material-ui/icons/Home';
+import HomeIcon from '../../images/homeIcon.png'
 
 class SearchBar extends Component {
   state = {
@@ -34,9 +34,7 @@ class SearchBar extends Component {
       return false;
     }
 
-    if (e.key === 'Backspace') {
-      return false;
-    }
+
 
     this.search(this.state.searchText);
   };
@@ -49,7 +47,7 @@ class SearchBar extends Component {
   }
 
   handleKeyType = (e) => {
-    const hasContent = this.state.searchText ? this.state.searchText.length > 0 : 0
+    const hasContent = this.state.searchText ? this.state.searchText.length > 0 : 0;
 
     if (e.key === 'Backspace' && hasContent) {
       this.search(this.state.searchText);
@@ -58,6 +56,14 @@ class SearchBar extends Component {
     if (e.key === 'Delete' && !hasContent) {
       return false;
     }
+
+    if (e.key === 'Backspace' && this.state.searchText.length < 1) {
+      this.setState((prevState) => ({
+        searchText: prevState.text,
+      }))
+      return false;
+    }
+
     this.setState({ showAlert: size(this.props.searchResults) < 1 ? true : null })
   }
 
@@ -69,7 +75,7 @@ class SearchBar extends Component {
   };
 
   search = (str) => {
-    if (str.length > 0) {
+    if (str ? str.length > 0 : 0) {
       return BooksAPI.search(str, 20)
         .then(results => results)
         .then((results) => {
@@ -121,7 +127,7 @@ class SearchBar extends Component {
               <InputGroup.Prepend>
                 <InputGroup.Text>
                   <Link to='/books'>
-                    <HomeIcon />
+                    <Image src={HomeIcon} width="33px" />
                   </Link>
                 </InputGroup.Text>
               </InputGroup.Prepend>
