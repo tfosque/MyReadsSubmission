@@ -55,7 +55,6 @@ class Book extends Component {
     const shelf = e.target.value;
 
     if (shelf === 'currentlyReading') {
-      console.log(e.target.value);
       BooksAPI.update({ id: book.id }, shelf);
     } else if (shelf === 'wantToRead') {
       BooksAPI.update({ id: book.id }, shelf);

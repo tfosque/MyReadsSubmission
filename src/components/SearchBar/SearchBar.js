@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { InputGroup, FormControl, Form, Alert } from 'react-bootstrap';
+import { InputGroup, FormControl, Form, Alert, Badge } from 'react-bootstrap';
 import { size, isEmpty } from 'lodash';
 import * as BooksAPI from '../../BooksAPI';
 import HomeIcon from '@material-ui/icons/Home';
@@ -14,8 +14,6 @@ class SearchBar extends Component {
   };
 
   handleTextChange = (e) => {
-    console.log('textChange', e.target.value.length);
-
     if (e.target.value.length <= 1) {
       return this.resetSearch();
     }
@@ -58,7 +56,6 @@ class SearchBar extends Component {
     }
 
     if (e.key === 'Delete' && !hasContent) {
-      console.log('Delete......');
       return false;
     }
     this.setState({ showAlert: size(this.props.searchResults) < 1 ? true : null })
@@ -142,11 +139,10 @@ class SearchBar extends Component {
               <InputGroup.Append>
                 <InputGroup.Text
                   id='basic-addon2'
-                  onClick={() => this.search(this.state.searchText)}
                   style={{ cursor: 'pointer' }}
                 >
-                  Search
-              </InputGroup.Text>
+                  <h5><Badge variant="primary">{size(this.props.searchResults)}</Badge>&nbsp;Results</h5>
+                </InputGroup.Text>
               </InputGroup.Append>
             </InputGroup>
           </Form.Group>
