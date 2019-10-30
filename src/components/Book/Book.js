@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { isEmpty, size } from 'lodash';
-import { Zoom } from '@material-ui/core';
+// import { Zoom } from '@material-ui/core';
 import * as BooksAPI from '../../BooksAPI';
 import NoCover from '../../images/cover-NA.jpg';
 
@@ -88,7 +88,7 @@ class Book extends Component {
     const bookStyle = {
       width: 128,
       height: 231,
-      margin: '0px 26px 76px',
+      margin: '0px 26px 76px 22px',
       marginTop: 0,
       display: 'block',
     };
@@ -150,7 +150,7 @@ class Book extends Component {
     const BOOK = () => {
       return (
         <div>
-          <Zoom in={true} timeout={{ enter: 0, exit: 50 }}>
+          <div className="bookBox">
             <div className='book' style={applyBookSearchStyle}>
               <div className='book-top'>
                <DisplayImage />
@@ -172,7 +172,7 @@ class Book extends Component {
               <div className='book-title'>{truncateTitle(title)}</div>
               <div className='book-authors'>{authorList}</div>
             </div>
-          </Zoom>
+          </div>
         </div>
       );
     };

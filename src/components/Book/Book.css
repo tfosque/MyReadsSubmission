@@ -11,3 +11,15 @@
   	display:  block;
 }
 
+div.book-top {
+  animation: bookGrow 1.0s;
+  width: 128px; height: 193px;
+}
+@keyframes bookGrow {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

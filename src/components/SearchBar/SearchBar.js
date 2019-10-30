@@ -54,7 +54,6 @@ class SearchBar extends Component {
     BooksAPI.search(this.state.searchText, 20)
     .then(results => results)
       .then((results) => {
-        // console.log({results})
         try {
           if (results.error === 'empty query') {
             this.props.loadBooksFromSearch([]);
