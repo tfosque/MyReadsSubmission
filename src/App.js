@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import BookStore from './components/BookStore/BookStore';
 import Search from './components/SearchPage/SearchPage';
 
-class BooksApp extends React.Component {
+class App extends React.Component {
   state = {
     showSearchPage: false,
   };
@@ -25,4 +25,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp;
+export default App;
