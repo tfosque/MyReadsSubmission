@@ -11,6 +11,8 @@ class SearchPage extends Component {
   };
 
   loadBooksFromSearch = (res) => {
+    console.log('load from res', { res });
+
     this.setState({
       booksToSearch: res,
     });
@@ -26,7 +28,7 @@ class SearchPage extends Component {
     }, 1200);
   };
 
-  render() {
+  render () {
     return (
       <div>
         <SearchBar
