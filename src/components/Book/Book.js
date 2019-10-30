@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { isEmpty, size } from 'lodash';
-// import { Zoom } from '@material-ui/core';
+import { animations, easings } from 'react-animation'
 import * as BooksAPI from '../../BooksAPI';
 import NoCover from '../../images/cover-NA.jpg';
 
@@ -54,13 +54,13 @@ class Book extends Component {
     const shelf = e.target.value;
 
     if (shelf === 'currentlyReading') {
-      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks());
+      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks(book.id));
     } else if (shelf === 'wantToRead') {
-      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks());
+      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks(book.id));
     } else if (shelf === 'read') {
-      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks());
+      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks(book.id));
     } else if (shelf === 'none') {
-      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks());
+      BooksAPI.update({ id: book.id }, shelf).then(() => refreshBooks(book.id));
     }
   };
 
@@ -84,6 +84,10 @@ class Book extends Component {
   render() {
     const { book } = this.props;
     const { imageLinks, title, authors } = book;
+
+    const style = {
+      animation: `pop-in ${easings.easeOutCubic} 600ms forwards`,
+    }
 
     const bookStyle = {
       width: 128,
@@ -150,8 +154,9 @@ class Book extends Component {
     const BOOK = () => {
       return (
         <div>
-          <div className="bookBox">
+          <div>
             <div className='book' style={applyBookSearchStyle}>
+              <section style={style}>
               <div className='book-top'>
                <DisplayImage />
                 <div className='book-shelf-changer'>
@@ -169,6 +174,9 @@ class Book extends Component {
                   </select>
                 </div>
               </div>
+
+            </section>
+
               <div className='book-title'>{truncateTitle(title)}</div>
               <div className='book-authors'>{authorList}</div>
             </div>

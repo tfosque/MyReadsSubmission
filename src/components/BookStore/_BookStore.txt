@@ -1,3 +1,5 @@
+// FIXME(Tim): map over shelves to mini Shelf footprint
+
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { isEmpty } from 'lodash';
@@ -13,6 +15,7 @@ class BookStore extends Component {
   state = {
     bookData: [],
     searchMode: false,
+    showHide: false,
     shelves: {
       currentlyReading: ['Currently Reading', 'currentlyReading'],
       wantToRead: ['Want to Read', 'wantToRead'],
@@ -44,6 +47,12 @@ class BookStore extends Component {
   render() {
     const { bookData, searchMode } = this.state;
 
+    const currentlyReading = bookData.filter(
+      (book) => book.shelf === 'currentlyReading',
+    );
+    const wantToRead = bookData.filter((book) => book.shelf === 'wantToRead');
+    const read = bookData.filter((book) => book.shelf === 'read');
+
     const NoResults = (
       <div style={{ width: '100%' }}>
         <div
@@ -67,17 +76,6 @@ class BookStore extends Component {
 
     if (isEmpty(bookData) && searchMode) {
       return NoResults;
-    }
-
-    const Shelves = () => {
-      return !isEmpty(bookData) ? Object.entries(this.state.shelves).map(shelf =>
-         <Shelf
-            shelf={shelf}
-            bookData={bookData}
-            refreshBooks={(id) => this.refreshBooks(id)}
-            searchMode={searchMode}
-          />
-        ) : null
     }
 
     return (
@@ -109,8 +107,34 @@ class BookStore extends Component {
           </div>
         ) : (
           <div>
-            <div style={{ margin: '30px 350px' }}>\
-              <Shelves />
+            <div style={{ margin: '30px 350px' }}>
+              <div>
+                <Shelf
+                  shelf='Currently Reading'
+                  books={currentlyReading}
+                  refreshBooks={(id) => this.refreshBooks(id)}
+                  searchMode={searchMode}
+                />
+                <Shelf
+                  shelf='Want To Read'
+                  books={wantToRead}
+                  refreshBooks={(id) => this.refreshBooks(id)}
+                  searchMode={searchMode}
+                />
+                <Shelf
+                  shelf='Read'
+                  books={read}
+                  refreshBooks={(id) => this.refreshBooks(id)}
+                  searchMode={searchMode}
+                />
+
+                <Shelf
+                  books={read}
+                  refreshBooks={(id) => this.refreshBooks(id)}
+                  searchMode={searchMode}
+                />
+              </div>
+
               <div
                 style={{
                   position: 'relative',

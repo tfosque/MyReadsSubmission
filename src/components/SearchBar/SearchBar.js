@@ -1,5 +1,5 @@
-// TODO: rewrite readme 30 minutes
-// TODO: testing.....
+// TODO(Tim): rewrite readme 60 minutes
+// TODO(Tim): testing.....using Cypress and Jest
 
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';

@@ -13,7 +13,11 @@ const proptypes = {
 
 export default class Shelf extends Component {
   render() {
-    const { books, shelf, refreshBooks } = this.props;
+    const { shelf, bookData, refreshBooks } = this.props;
+
+    const books =  bookData.filter(f => f.shelf.includes(shelf[0]));
+
+    const shelfTitle = shelf[1][0];
 
     const Books = () => {
       return (
@@ -30,7 +34,7 @@ export default class Shelf extends Component {
                         searchMode={this.props.searchMode}
                         book={book}
                         shelfLabel={label}
-                        refreshBooks={() => refreshBooks()}
+                        refreshBooks={(id) => refreshBooks(id)}
                         turnOffSearchStyles={() =>
                           this.props.turnOffSearchStyles
                         }
@@ -49,7 +53,7 @@ export default class Shelf extends Component {
     return (
       <div className='shelfContainer'>
         <Books />
-        <Bar shelf={shelf} />
+        <Bar shelf={shelfTitle} />
       </div>
     );
   }
