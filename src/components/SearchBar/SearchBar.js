@@ -11,10 +11,11 @@ class SearchBar extends Component {
   state = {
     searchText: null,
     showAlert: false,
-    key: null,
   };
 
   handleTextChange = (e) => {
+    console.log('textChange', e.target.value.length);
+
     if (e.target.value.length <= 1) {
       return this.resetSearch();
     }
@@ -24,9 +25,25 @@ class SearchBar extends Component {
       return false;
     }
 
-    this.search();
+    if (e.key === 'Delete') {
+      e.preventDefault();
+
+      this.setState((prevState) => ({
+        searchText: prevState.text,
+      }))
+
+      this.resetSearch();
+      return false;
+    }
+
+    if (e.key === 'Backspace') {
+      return false;
+    }
+
+    this.search(this.state.searchText);
   };
 
+  // bind input field
   handleOnChange = e => {
     this.setState({
       searchText: e.target.value,
@@ -34,17 +51,15 @@ class SearchBar extends Component {
   }
 
   handleKeyType = (e) => {
-    console.log('size:handleKeyType', size(this.state));
-
-    const hasContent = this.state.searchText ? this.state.searchText.length > 0 : null
+    const hasContent = this.state.searchText ? this.state.searchText.length > 0 : 0
 
     if (e.key === 'Backspace' && hasContent) {
       this.search(this.state.searchText);
     }
 
-    if (e.key === 'Delete' & !hasContent) {
+    if (e.key === 'Delete' && !hasContent) {
       console.log('Delete......');
-      this.props.loadBooksFromSearch([]);
+      return false;
     }
     this.setState({ showAlert: size(this.props.searchResults) < 1 ? true : null })
   }
@@ -57,13 +72,13 @@ class SearchBar extends Component {
   };
 
   search = (str) => {
-    if (str) {
+    if (str.length > 0) {
       return BooksAPI.search(str, 20)
         .then(results => results)
         .then((results) => {
           try {
             if (results.error === 'empty query') {
-              this.props.loadBooksFromSearch([]);
+              this.resetSearch();
               return;
             }
             this.props.loadBooksFromSearch(results);
@@ -72,12 +87,12 @@ class SearchBar extends Component {
           }
         })
     }
-
   };
 
   resetSearch = () => {
     this.setState({
       showAlert: false,
+      searchText: '',
     });
     this.props.loadBooksFromSearch([]);
   };
@@ -93,8 +108,6 @@ class SearchBar extends Component {
           </h4>
         ) : null;
     }
-
-    console.log(this);
 
 
     return (
