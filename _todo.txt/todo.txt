@@ -1,9 +1,10 @@
 // TODO: rolloever effect for addIcon - UX
 // TODO: shelf visual - UX UI
-// TODO: book container handle text length
-// TODO: book container handle favorites
-// TODO: wireframe ux UI
-// TODO: basic user story
-// TODO: three user personas
-// TODO: tighten search bar functionality
-// TODO: create a footer with search results summary
+// TODO: book container handle text length -UI
+// TODO: book container handle favorites - UX
+// TODO: wireframe - UX UI
+// TODO: basic user story - UX
+// TODO: three user personas - UX
+// TODO: tighten search bar functionality - UX
+// TODO: create a footer with search results summary - UX
+// TODO: create application notice component

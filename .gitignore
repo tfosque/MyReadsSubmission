@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+*.txt
+/todo
+
 *.zip
 
 # testing
