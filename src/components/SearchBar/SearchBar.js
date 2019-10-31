@@ -1,11 +1,16 @@
-// TODO(Tim): rewrite readme 60 minutes
-
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { InputGroup, FormControl, Form, Alert, Badge, Image } from 'react-bootstrap';
+import {
+  InputGroup,
+  FormControl,
+  Form,
+  Alert,
+  Badge,
+  Image,
+} from 'react-bootstrap';
 import { size, isEmpty } from 'lodash';
 import * as BooksAPI from '../../BooksAPI';
-import HomeIcon from '../../images/homeIcon.png'
+import HomeIcon from '../../images/homeIcon.png';
 
 class SearchBar extends Component {
   state = {
@@ -28,26 +33,26 @@ class SearchBar extends Component {
 
       this.setState((prevState) => ({
         searchText: prevState.text,
-      }))
+      }));
 
       this.resetSearch();
       return false;
     }
 
-
-
     this.search(this.state.searchText);
   };
 
   // bind input field
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({
       searchText: e.target.value,
-    })
-  }
+    });
+  };
 
   handleKeyType = (e) => {
-    const hasContent = this.state.searchText ? this.state.searchText.length > 0 : 0;
+    const hasContent = this.state.searchText
+      ? this.state.searchText.length > 0
+      : 0;
 
     if (e.key === 'Backspace' && hasContent) {
       this.search(this.state.searchText);
@@ -60,12 +65,14 @@ class SearchBar extends Component {
     if (e.key === 'Backspace' && this.state.searchText.length < 1) {
       this.setState((prevState) => ({
         searchText: prevState.text,
-      }))
+      }));
       return false;
     }
 
-    this.setState({ showAlert: size(this.props.searchResults) < 1 ? true : null })
-  }
+    this.setState({
+      showAlert: size(this.props.searchResults) < 1 ? true : null,
+    });
+  };
 
   onFormSubmit = (e) => {
     if (e.key === 'Enter') {
@@ -77,7 +84,7 @@ class SearchBar extends Component {
   search = (str) => {
     if (str ? str.length > 0 : 0) {
       return BooksAPI.search(str, 20)
-        .then(results => results)
+        .then((results) => results)
         .then((results) => {
           try {
             if (results.error === 'empty query') {
@@ -88,7 +95,7 @@ class SearchBar extends Component {
           } catch (error) {
             console.log('Book does not contain a shelf yet');
           }
-        })
+        });
     }
   };
 
@@ -100,18 +107,19 @@ class SearchBar extends Component {
     this.props.loadBooksFromSearch([]);
   };
 
-  render () {
+  render() {
     const EmptyResults = () => {
-      return size(this.props.searchResults) < 1 && this.state.showAlert && !isEmpty(this.state.searchText) ?
-        (
-          <h4 style={{ marginTop: -16, textAlign: 'center' }}>
-            <Alert variant='warning'>
-              'Sorry your search did not return any results. Continue typing to see more results or try again.'
-            </Alert>
-          </h4>
-        ) : null;
-    }
-
+      return size(this.props.searchResults) < 1 &&
+        this.state.showAlert &&
+        !isEmpty(this.state.searchText) ? (
+        <h4 style={{ marginTop: -16, textAlign: 'center' }}>
+          <Alert variant='warning'>
+            'Sorry your search did not return any results. Continue typing to
+            see more results or try again.'
+          </Alert>
+        </h4>
+      ) : null;
+    };
 
     return (
       <div>
@@ -127,7 +135,7 @@ class SearchBar extends Component {
               <InputGroup.Prepend>
                 <InputGroup.Text>
                   <Link to='/books'>
-                    <Image src={HomeIcon} width="33px" />
+                    <Image src={HomeIcon} width='33px' />
                   </Link>
                 </InputGroup.Text>
               </InputGroup.Prepend>
@@ -147,7 +155,12 @@ class SearchBar extends Component {
                   id='basic-addon2'
                   style={{ cursor: 'pointer' }}
                 >
-                  <h5><Badge variant="primary">{size(this.props.searchResults)}</Badge>&nbsp;Results</h5>
+                  <h5>
+                    <Badge variant='primary'>
+                      {size(this.props.searchResults)}
+                    </Badge>
+                    &nbsp;Results
+                  </h5>
                 </InputGroup.Text>
               </InputGroup.Append>
             </InputGroup>
