@@ -9,18 +9,20 @@ import { Button } from 'react-bootstrap';
 import { CircleButton } from '../SearchBar/CircleButton';
 import Shelf from './Shelf';
 
+import './BookStore.css';
+
 class BookStore extends Component {
   state = {
     bookData: [],
     searchMode: false,
     shelves: {
-      currentlyReading: [ 'Currently Reading', 'currentlyReading' ],
-      wantToRead: [ 'Want to Read', 'wantToRead' ],
-      read: [ 'Read', 'read' ]
-    }
+      currentlyReading: ['Currently Reading', 'currentlyReading'],
+      wantToRead: ['Want to Read', 'wantToRead'],
+      read: ['Read', 'read'],
+    },
   };
 
-  componentDidMount () {
+  componentDidMount() {
     this.refreshBooks();
   }
 
@@ -41,7 +43,7 @@ class BookStore extends Component {
     }, 500);
   };
 
-  render () {
+  render() {
     const { bookData, searchMode } = this.state;
 
     const NoResults = (
@@ -70,16 +72,19 @@ class BookStore extends Component {
     }
 
     const Shelves = () => {
-      return !isEmpty(bookData) ? Object.entries(this.state.shelves).map(shelf =>
-        <Shelf
-          key={shelf}
-          shelf={shelf}
-          books={bookData} Œ
-          refreshBooks={(id) => this.refreshBooks(id)}
-          searchMode={searchMode}
-        />
-      ) : null
-    }
+      return !isEmpty(bookData)
+        ? Object.entries(this.state.shelves).map((shelf) => (
+            <Shelf
+              key={shelf}
+              shelf={shelf}
+              books={bookData}
+              Œ
+              refreshBooks={(id) => this.refreshBooks(id)}
+              searchMode={searchMode}
+            />
+          ))
+        : null;
+    };
 
     return (
       <div>
@@ -109,24 +114,15 @@ class BookStore extends Component {
             <div style={{ color: '#fff' }}>&nbsp; searching books...</div>
           </div>
         ) : (
-            <div>
-              <div style={{ margin: '30px 350px' }}>
-                <Shelves />
-                <div
-                  style={{
-                    position: 'relative',
-                    top: -620,
-                    left: 350,
-                    zIndex: 1000,
-                    float: 'right',
-                    margin: '90px 155px',
-                  }}
-                >
-                  <CircleButton />
-                </div>
+          <div>
+            <div style={{ margin: '30px 350px' }}>
+              <Shelves />
+              <div className='circleButtonContainer'>
+                <CircleButton />
               </div>
             </div>
-          )}
+          </div>
+        )}
       </div>
     );
   }

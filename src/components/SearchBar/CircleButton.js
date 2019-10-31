@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import './CircleButton.css';
+import { Image } from 'react-bootstrap';
+import AddIcon from '../../images/icon-add.svg.png';
 
 export function CircleButton(props) {
   return (
     <div>
       <Link to='/search'>
-        <button type='button' className='btn btn-success btn-circle btn-xl'>
-          <b style={{ fontSize: 60, marginTop: -21, display: 'block' }}>+</b>
-        </button>
+        <Image src={AddIcon} />
       </Link>
     </div>
   );

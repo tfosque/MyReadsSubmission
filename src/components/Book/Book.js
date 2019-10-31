@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { isEmpty, size } from 'lodash';
-import { easings } from 'react-animation'
+import { easings } from 'react-animation';
 import * as BooksAPI from '../../BooksAPI';
 import NoCover from '../../images/cover-NA.jpg';
 
@@ -11,25 +11,24 @@ class Book extends Component {
   _isMounted = false;
 
   state = {
-    active: true,
     defaultValue: 'none',
   };
 
-  componentDidMount () {
+  componentDidMount() {
     this._isMounted = true;
 
     BooksAPI.get(this.props.book.id)
       .then((json) => json)
-      .then(result => {
+      .then((result) => {
         if (this._isMounted) {
           this.setState({
             defaultValue: result.shelf,
-          })
+          });
         }
       });
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this._isMounted = false;
   }
 
@@ -65,13 +64,13 @@ class Book extends Component {
     }
   };
 
-  render () {
+  render() {
     const { book } = this.props;
     const { imageLinks, title, authors } = book;
 
     const style = {
       animation: `pop-in ${easings.easeOutCubic} 600ms forwards`,
-    }
+    };
 
     const bookStyle = {
       width: 128,
@@ -111,29 +110,28 @@ class Book extends Component {
       getRoute === '/search' ? this.handleChangeSearch : this.handleChange;
 
     const DisplayImage = () => {
-      return (
-        !isEmpty(imageLinks) ? (
-          <div
-            className='book-cover'
-            style={{
-              width: '100%',
-              height: '100%',
-              backgroundImage: `url(${thumb})`,
-            }}
-          />
-        ) : (
-            <div
-              className='book-cover'
-              style={{
-                width: '100%',
-                height: '100%',
-                backgroundImage: `url(${thumb})`,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-              }}
-            />
-          ))
-    }
+      return !isEmpty(imageLinks) ? (
+        <div
+          className='book-cover'
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundImage: `url(${thumb})`,
+          }}
+        />
+      ) : (
+        <div
+          className='book-cover'
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundImage: `url(${thumb})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+          }}
+        />
+      );
+    };
 
     const BOOK = () => {
       return (
@@ -150,8 +148,10 @@ class Book extends Component {
                     >
                       <option value='move' disabled>
                         Move to...
-                    </option>
-                      <option value='currentlyReading'>Currently Reading</option>
+                      </option>
+                      <option value='currentlyReading'>
+                        Currently Reading
+                      </option>
                       <option value='wantToRead'>Want to Read</option>
                       <option value='read'>Read</option>
                       <option value='none'>None</option>

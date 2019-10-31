@@ -151,10 +151,7 @@ class SearchBar extends Component {
               />
 
               <InputGroup.Append>
-                <InputGroup.Text
-                  id='basic-addon2'
-                  style={{ cursor: 'pointer' }}
-                >
+                <InputGroup.Text id='basic-addon2'>
                   <h5>
                     <Badge variant='primary'>
                       {size(this.props.searchResults)}
