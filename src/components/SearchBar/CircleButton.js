@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
 import './CircleButton.css';
 
-export function CircleButton (props) {
+export function CircleButton(props) {
   return (
     <div>
       <Link to='/search'>
