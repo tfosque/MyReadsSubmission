@@ -6,11 +6,7 @@ import BookStore from './components/BookStore/BookStore';
 import Search from './components/SearchPage/SearchPage';
 
 class App extends React.Component {
-  state = {
-    showSearchPage: false,
-  };
-
-  render () {
+  render() {
     return (
       <BrowserRouter base='/'>
         <div className='app'>
