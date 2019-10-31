@@ -1,9 +1,5 @@
 # MyReads Project: React Fundamentals
 
-
-
-## TL;DR
-
 To get started previewing this project:
 
 - install all project dependencies with `npm install`
@@ -25,7 +21,7 @@ To get started previewing this project:
         ├── BookStore
         ├── SearchBar
         ├── SearchPage
-        └── Home.js
+        └── Home.js - Component Entry Point
     ├── App.css # Styles
     ├── App.js # Root of app.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
@@ -35,18 +31,14 @@ To get started previewing this project:
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
     ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # Entry Point
+    └── index.js # Application Entry Point
 ```
-
-The following packages were used to help with UI creation.
 
 ## Additional Packages
 
-- @material-ui/core
-- @material-ui/icons
-- react-bootstrap
+- react-bootstrap (faster ui setup)
 
-## Backend Server
+## Backend Server Provide by Udacity Workspace
 
 To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
 
@@ -88,11 +80,3 @@ search(query);
 - query: `<String>`
 - Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
 - These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
-
-## Important
-
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
-
-## Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
